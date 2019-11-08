@@ -4,6 +4,7 @@
 
 int main()
 {
+    std::cout << "ABC" << std::endl;
     /*
     al_init();
     ALLEGRO_DISPLAY* x;
