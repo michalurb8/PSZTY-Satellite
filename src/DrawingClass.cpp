@@ -24,7 +24,6 @@ void DrawingClass::Draw()
     //sleep(1);
 	for (auto a : *planets)
 	{
-		std::cout << a.getXPos() << " " << a.getYPos() << std::endl;
 		al_draw_filled_circle(a.getXPos() + displaySizeX/2, displaySizeY/2 - a.getYPos(), Planet::getPLANETRADIUS(), al_map_rgb(120, 120, 0));
 	}
     al_flip_display();
