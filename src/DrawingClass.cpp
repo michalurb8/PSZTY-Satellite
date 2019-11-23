@@ -31,6 +31,7 @@ void DrawingClass::Draw()
     //sleep(1);
 }
 
+
 void DrawingClass::CloseWindow()
 {
     al_destroy_display(disp);
