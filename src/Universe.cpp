@@ -5,7 +5,11 @@
 
 Universe::Universe()
 {
-    //...constructor
+	for (int i = 0; i < 20; ++i)
+	{
+		planets.push_back(Planet(i, 25* i));
+	}
+	planets.push_back(Planet(0.5, 250));
     LoadAssetsToDraw();
 }
 void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)

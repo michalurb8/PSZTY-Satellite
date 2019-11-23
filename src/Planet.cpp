@@ -1,22 +1,34 @@
 #include "Planet.h"
 #include <cmath>
 
-unsigned int Planet::mass;
 
-Planet::Planet(unsigned int angleArg, unsigned int radArg)
-:initialAngle(angleArg),
-radius(radArg),
-xPos(0), yPos(0),
-velocity(mass/sqrt(radius))
-{}
+Planet::Planet(double angleArg, unsigned int radArg)
+	:initialAngle(angleArg),
+	radius(radArg)
+{
+	velocity = (mass / (sqrt(radius) * radius));
+	UpdatePos(0);
+}
 
 void Planet::UpdatePos(unsigned int time)
 {
-    xPos = radius * sin(initialAngle + velocity*time);
-    yPos = radius * cos(initialAngle + velocity*time);
+    xPos = radius * cos(initialAngle + velocity*time);
+    yPos = radius * sin(initialAngle + velocity*time);
 }
 
-void Planet::SetMass(unsigned int massArg)
+
+int Planet::getXPos()
 {
-    mass = massArg;
+	return xPos;
 }
+
+int Planet::getYPos()
+{
+	return yPos;
+}
+
+int Planet::getPLANETRADIUS()
+{
+	return PLANETRADIUS;
+}
+
