@@ -4,14 +4,18 @@
 class Planet
 {
     static unsigned int mass;
-    unsigned int xPos, yPos;
-    unsigned int velocity;
+
     unsigned int initialAngle;
     unsigned int radius;
-    unsigned int R,G,B;
+
+    unsigned int xPos, yPos;
+    unsigned int velocity;
 public:
-    void UpdatePos(unsigned int time);
     Planet(unsigned int angleArg, unsigned int radArg);
+    Planet() = delete;
+
+    void UpdatePos(unsigned int time);
+    void SetMass(unsigned int massArg);
 };
 
 #endif//*************8
