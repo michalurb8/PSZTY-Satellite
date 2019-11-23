@@ -6,11 +6,11 @@
 
 Universe::Universe()
 {
-	for (int i = 0; i < 20; ++i)
+	for (int i = 2; i < 20; ++i)
 	{
-		planets.push_back(Planet(i, 25* i));
+		planets.push_back(Planet(0, i*15));
 	}
-	planets.push_back(Planet(0.5, 250));
+	planets.push_back(Planet(5.0, 250));
     LoadAssetsToDraw();
 }
 void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)

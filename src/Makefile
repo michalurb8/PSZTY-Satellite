@@ -1,7 +1,7 @@
 CF = -Wall -pedantic -std=c++11 -O3
 LF = -lallegro -lallegro_primitives
 
-default: main.o Universe.o Planet.o DrawingClass.o Rocket.o
+default: clean main.o Universe.o Planet.o DrawingClass.o Rocket.o
 	g++ main.o Universe.o Planet.o DrawingClass.o Rocket.o -o exe $(LF) 
 
 main.o: main.cpp 
