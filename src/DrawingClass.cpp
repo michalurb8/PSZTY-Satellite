@@ -20,7 +20,7 @@ void DrawingClass::LoadPlanets(std::vector<Planet> *Arg)
 void DrawingClass::Draw()
 {
     if(!disp) disp = al_create_display(displaySizeX, displaySizeY);
-    for(int i = 0; i < 5000; ++i)
+    for(int i = 0; i < 500000; ++i)
     {
     	for (Planet& a : *planets)
 	    {
@@ -35,7 +35,6 @@ void DrawingClass::Draw()
         al_rest(0.01);
 	}
 }
-
 
 void DrawingClass::CloseWindow()
 {

@@ -1,5 +1,6 @@
 #include "Planet.h"
 #include <cmath>
+#include <iostream>
 
 
 Planet::Planet(double angleArg, unsigned int radArg)
@@ -16,18 +17,17 @@ void Planet::UpdatePos(unsigned int time)
     yPos = radius * sin(initialAngle + velocity*time);
 }
 
-
-int Planet::getXPos()
+int Planet::GetXPos()
 {
 	return xPos;
 }
 
-int Planet::getYPos()
+int Planet::GetYPos()
 {
 	return yPos;
 }
 
-int Planet::getPLANETRADIUS()
+int Planet::GetPLANETRADIUS()
 {
 	return PLANETRADIUS;
 }

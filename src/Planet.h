@@ -8,7 +8,7 @@ class Planet
     int radius;
 
     int xPos, yPos;
-    int velocity;
+    double velocity;
 
 	static const int mass = 300;
 	static const int PLANETRADIUS = 10;
@@ -19,9 +19,9 @@ public:
 
     void UpdatePos(unsigned int time);
 
-	int getXPos();
-	int getYPos();
-	static int getPLANETRADIUS();
+	int GetXPos();
+	int GetYPos();
+	static int GetPLANETRADIUS();
 };
 
-#endif//*************8
+#endif
