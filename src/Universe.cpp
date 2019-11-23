@@ -6,16 +6,23 @@
 
 Universe::Universe()
 {
-	for (int i = 2; i < 20; ++i)
-	{
-		planets.push_back(Planet(0, i*15));
-	}
-	planets.push_back(Planet(5.0, 250));
-    LoadAssetsToDraw();
 }
 void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)
 {
-    planets.push_back(Planet(angleArg, radArg));
+    planets->push_back(Planet(angleArg, radArg));
+}
+
+void Universe::testDrawing()
+{
+	for (int i = 0; i < 500; ++i)
+	{
+		for (Planet& a : *planets)
+		{
+			a.UpdatePos(i);
+		}
+		drawingObject.Draw();
+		Sleep(10);
+	}
 }
 
 void Universe::Display()
@@ -23,9 +30,14 @@ void Universe::Display()
     drawingObject.Draw();
 }
 
+void Universe::CloseWindow()
+{
+	drawingObject.CloseWindow();
+}
+
 void Universe::LoadAssetsToDraw()
 {
-    drawingObject.LoadPlanets(&planets);
+    drawingObject.LoadPlanets(planets);
     //..rockets
 }
 
@@ -33,7 +45,7 @@ void Universe::MoveRocket(Rocket& r)
 {
     int tempX;
     int tempY;
-    for(auto p : planets)
+    for(auto p : *planets)
     {
         r.Move();
         tempX = (r.GetXPos() - p.GetXPos()) * (r.GetXPos() - p.GetXPos());
@@ -49,42 +61,13 @@ void Universe::MoveRocket(Rocket& r)
     }
 }
 
-void Universe::ShellResolve(char choice)
+void Universe::LoadPlanets(std::vector<Planet>* Arg)
 {
-    switch(choice)
-    {
-	case 'q':
-		std::cout << "Shutting down..." << std::endl << std::endl;
-		return;
-        case 'h':
-            std::cout << std::endl <<
-            "Available commands:" << std::endl << std::endl <<
-            "   h - Display this help message" << std::endl <<
-            "   d - Display generation" << std::endl <<
-            "   c - Close window" << std::endl <<
-            "   q - Exit" << std::endl;
-			return;
-        case 'c':
-            drawingObject.CloseWindow();
-            break;
-        case 'd':
-            Display();
-            break;
-        default:
-            std::cout << "Unknown command. Try 'h' for help." << std::endl;
-    }
+	planets = Arg;
 }
 
-void Universe::ShellLoop()
+void Universe::LoadRockets(std::vector<Rocket>* Arg)
 {
-    char choice;
-    ShellResolve('h');
-    do
-    {
-        std::string temp;
-        std::cout << std::endl << "> ";
-        std::cin >> temp;
-        choice =  temp[0];
-        ShellResolve(choice);
-    } while(choice != 'q');
+	rockets = Arg;
 }
+

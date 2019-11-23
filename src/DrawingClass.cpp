@@ -17,23 +17,32 @@ void DrawingClass::LoadPlanets(std::vector<Planet> *Arg)
     planets = Arg;
 }
 
+void DrawingClass::LoadRockets(std::vector<Rocket>* Arg)
+{
+	rockets = Arg;
+}
+
 void DrawingClass::Draw()
 {
     if(!disp) disp = al_create_display(displaySizeX, displaySizeY);
-    for(int i = 0; i < 500000; ++i)
-    {
-    	for (Planet& a : *planets)
-	    {
-            a.UpdatePos(i);
-        }
-        al_clear_to_color(al_map_rgb(50,50,99));
-    	for (auto a : *planets)
-	    {
-		    al_draw_filled_circle(a.GetXPos() + displaySizeX/2, displaySizeY/2 - a.GetYPos(), Planet::GetPLANETRADIUS(), al_map_rgb(120, 120, 0));
-        }
-        al_flip_display();
-        al_rest(0.01);
+    
+	al_clear_to_color(al_map_rgb(50,50,99));
+	DrawPlanets();
+	DrawRockets();
+    al_flip_display();
+}
+
+void DrawingClass::DrawPlanets()
+{
+	for (Planet& a : *planets)
+	{
+		al_draw_filled_circle(a.GetXPos() + displaySizeX / 2, displaySizeY / 2 - a.GetYPos(), Planet::GetPLANETRADIUS(), al_map_rgb(120, 120, 0));
 	}
+}
+
+void DrawingClass::DrawRockets()
+{
+
 }
 
 void DrawingClass::CloseWindow()

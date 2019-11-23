@@ -7,7 +7,7 @@ Planet::Planet(double angleArg, unsigned int radArg)
 	:initialAngle(angleArg),
 	radius(radArg)
 {
-	velocity = (mass / (sqrt(radius) * radius));
+	velocity = (MASS / (sqrt(radius) * radius));
 	UpdatePos(0);
 }
 
