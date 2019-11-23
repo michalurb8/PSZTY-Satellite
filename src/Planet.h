@@ -1,24 +1,27 @@
 #ifndef PLANET_H
 #define PLANET_H
 
+
 class Planet
 {
-    static unsigned int mass;
+    double initialAngle;
+    int radius;
 
-    unsigned int initialAngle;
-    unsigned int radius;
+    int xPos, yPos;
+    int velocity;
 
-    unsigned int xPos, yPos;
-    unsigned int velocity;
+	static const int mass = 300;
+	static const int PLANETRADIUS = 10;
+
 public:
-    Planet(unsigned int angleArg, unsigned int radArg);
+    Planet(double angleArg, unsigned int radArg);
     Planet() = delete;
 
     void UpdatePos(unsigned int time);
-    void SetMass(unsigned int massArg);
 
-    int GetXPos();
-    int GetYPos();
+	int getXPos();
+	int getYPos();
+	static int getPLANETRADIUS();
 };
 
 #endif//*************8

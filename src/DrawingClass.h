@@ -9,6 +9,8 @@ class DrawingClass
 {
     ALLEGRO_DISPLAY* disp;
     std::vector<Planet> *planets;
+	int displaySizeX;
+	int displaySizeY;
 public:
     DrawingClass();
     void Init();
