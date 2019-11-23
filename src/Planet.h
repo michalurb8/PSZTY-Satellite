@@ -8,4 +8,4 @@ class Planet
     unsigned int velocity;
 };
 
-#endif
+#endif//////
