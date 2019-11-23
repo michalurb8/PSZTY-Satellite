@@ -20,3 +20,13 @@ void Planet::SetMass(unsigned int massArg)
 {
     mass = massArg;
 }
+
+int Planet::GetXPos()
+{
+    return xPos;
+}
+
+int Planet::GetYPos()
+{
+    return yPos;
+}

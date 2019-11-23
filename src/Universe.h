@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 
+#include "Rocket.h"
 #include "Planet.h"
 #include "DrawingClass.h"
 
@@ -17,6 +18,8 @@ public:
     void ShellResolve(char choice);
     void ShellLoop();
     void AddPlanet(unsigned int angleArg, unsigned int radArg);
+
+    void MoveRocket(Rocket& r);
 
     void LoadAssetsToDraw();
     void Display();

@@ -16,6 +16,9 @@ public:
 
     void UpdatePos(unsigned int time);
     void SetMass(unsigned int massArg);
+
+    int GetXPos();
+    int GetYPos();
 };
 
 #endif//*************8
