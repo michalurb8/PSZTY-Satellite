@@ -12,6 +12,7 @@ void Universe::ShellResolve(char choice)
         case 'h':
             std::cout << std::endl <<
             "Available commands:" << std::endl << std::endl <<
+            "   h - Display this help message" << std::endl <<
             "   q - Exit" << std::endl;
 			return;
         default:
