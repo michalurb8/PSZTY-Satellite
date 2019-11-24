@@ -14,7 +14,7 @@ void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)
 
 void Universe::testDrawing()
 {
-	for (int i = 0; i < 500; ++i)
+	for (int i = 0; i < 50; ++i)
 	{
 		for (Planet& a : *planets)
 		{
