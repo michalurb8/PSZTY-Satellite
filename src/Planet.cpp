@@ -31,4 +31,3 @@ int Planet::GetPLANETRADIUS()
 {
 	return PLANETRADIUS;
 }
-
