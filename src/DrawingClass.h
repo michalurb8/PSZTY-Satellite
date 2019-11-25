@@ -15,11 +15,12 @@ class DrawingClass
 	int displaySizeY;
 public:
     DrawingClass();
+    ~DrawingClass();
     void Draw();
 	void DrawPlanets();
 	void DrawRockets();
     void CloseWindow();
-    void LoadPlanets(std::vector<Planet> *Arg);
+    void LoadPlanets(std::vector<Planet>* Arg);
 	void LoadRockets(std::vector<Rocket>* Arg);
 };
 

@@ -7,8 +7,10 @@ class Rocket
 {
     static int maxdist;
     int mindist;
-    int xPos, yPos;
+    double xPos, yPos;
     double xVel, yVel;
+
+    bool alive;
 
     int iTime;
     int iFi;
@@ -18,10 +20,12 @@ public:
     Rocket(int xPos, int yPos, int xVel, int yVel);
     void Move();
     void Accel(double xArg, double yArg);
-    int GetXPos();
-    int GetYPos();
-    double GetXVel();
-    double GetYVel();
+    double GetXPos() const;
+    double GetYPos() const;
+    double GetXVel() const;
+    double GetYVel() const;
+    bool GetAlive() const;
+    void CalcScore(const Planet& p);
     void UpdateRocket(const std::vector<Planet>& planets);
 };
 

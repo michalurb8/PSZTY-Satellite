@@ -15,18 +15,19 @@ void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)
 
 void Universe::Simulate()
 {
-	for (int i = 0; i < 500; ++i)
+	for (int i = 0; i < 50000; ++i)
 	{
         for(Rocket& r : *rockets)
         {
-            r.UpdateRocket(*planets);
+            if(r.GetAlive())
+                r.UpdateRocket(*planets);
         }
 		for (Planet& a : *planets)
 		{
 			a.UpdatePos(i);
 		}
         Display();
-        al_rest(0.1);
+        al_rest(0.01);
 	}
 }
 
