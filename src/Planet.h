@@ -10,7 +10,7 @@ class Planet
     int xPos, yPos;
     double velocity;
 
-	static const int mass = 300;
+	static const int MASS = 300;
 	static const int PLANETRADIUS = 10;
 
 public:
