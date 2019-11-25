@@ -7,7 +7,10 @@ Planet::Planet(double angleArg, unsigned int radArg)
 	:initialAngle(angleArg),
 	radius(radArg)
 {
-	velocity = (MASS / (sqrt(radius) * radius));
+	if(radius > 49)
+		velocity = (MASS / (sqrt(radius) * radius))/50.0;
+	else velocity = (MASS / (343.0))/50.0;
+
 	UpdatePos(0);
 }
 
@@ -30,4 +33,9 @@ int Planet::GetYPos()
 int Planet::GetPLANETRADIUS()
 {
 	return PLANETRADIUS;
+}
+
+int Planet::GetPLANETMASS()
+{
+	return MASS;
 }

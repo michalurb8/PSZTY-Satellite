@@ -11,11 +11,10 @@ class FlightControl
 	std::vector<Planet> planets;
 	std::vector<Rocket> rockets;
 
+	void LoadAssets();
 public:
 	FlightControl();
-	void LoadAssets();
 
 	void ShellResolve(char choice);
 	void ShellLoop();
 };
-

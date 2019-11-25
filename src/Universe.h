@@ -24,7 +24,7 @@ public:
 	void LoadRockets(std::vector<Rocket>* Arg);
     void LoadAssetsToDraw();
 
-	void testDrawing();
+	void Simulate();
     void Display();
 	void CloseWindow();
 };

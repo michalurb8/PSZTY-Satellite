@@ -1,13 +1,24 @@
+#include <vector>
+#include <cmath>
+#include <iostream>
+
 #include "Rocket.h"
 
 int Rocket::maxdist;
 
+Rocket::Rocket(int xPos, int yPos, int xVel, int yVel)
+{
+    this->xPos = xPos;
+    this->yPos = yPos;
+    this->xVel = xVel;
+    this->yVel = yVel;
+}
 void Rocket::Move()
 {
-    xPos += (int)xVel;
-    yPos += (int)yVel;
+    xPos += xVel;
+    yPos += yVel;
 }
-void Rocket::Accel(int xArg, int yArg)
+void Rocket::Accel(double xArg, double yArg)
 {
     xVel += xArg;
     yVel += yArg;
@@ -20,31 +31,35 @@ int Rocket::GetYPos()
 {
     return yPos;
 }
-int Rocket::GetXVel()
+double Rocket::GetXVel()
 {
     return xVel;
 }
-int Rocket::GetYVel()
+double Rocket::GetYVel()
 {
     return yVel;
 }
 
-void Rocket::CalcMovement(Rocket& r)
+void Rocket::UpdateRocket(const std::vector<Planet>& planets)
 {
-    int tempX;
-    int tempY;
+    double tempX;
+    double tempY;
+    Rocket& r = *this;
+    r.Move();
     for(auto p : planets)
     {
-        r.Move();
         tempX = (r.GetXPos() - p.GetXPos()) * (r.GetXPos() - p.GetXPos());
         tempX += (r.GetYPos() - p.GetYPos()) * (r.GetYPos() - p.GetYPos());
         tempX *= sqrt(tempX);
         tempX = (p.GetXPos() - r.GetXPos())/tempX;
+        tempX *= Planet::GetPLANETMASS();
 
         tempY = (r.GetXPos() - p.GetXPos()) * (r.GetXPos() - p.GetXPos());
         tempY += (r.GetYPos() - p.GetYPos()) * (r.GetYPos() - p.GetYPos());
         tempY *= sqrt(tempY);
-        tempY = (p.GetXPos() - r.GetXPos())/tempY;
+        tempY = (p.GetYPos() - r.GetYPos())/tempY;
+        tempY *= Planet::GetPLANETMASS();
+
         r.Accel(tempX, tempY);
     }
 }

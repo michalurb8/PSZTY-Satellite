@@ -3,11 +3,10 @@
 
 FlightControl::FlightControl()
 {
-	for (int i = 2; i < 20; ++i)
-	{
-		planets.push_back(Planet(0, i * 15));
-	}
-	planets.push_back(Planet(5.0, 250));
+	for(int i = 0; i < 5; ++i)
+		planets.push_back(Planet(i, i*50 + 100));
+	for(int i = 0; i < 5; ++i)
+		rockets.push_back(Rocket(10*i, -20*i, 1, 2));
 	LoadAssets();
 }
 
@@ -37,7 +36,7 @@ void FlightControl::ShellResolve(char choice)
 		universe.CloseWindow();
 		break;
 	case 'd':
-		universe.testDrawing();
+		universe.Simulate();
 		break;
 	default:
 		std::cout << "Unknown command. Try 'h' for help." << std::endl;

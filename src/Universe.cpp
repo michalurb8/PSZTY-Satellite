@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <cmath>
+#include <allegro5/allegro.h>
 
 #include "Universe.h"
 
@@ -12,16 +13,20 @@ void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)
     planets->push_back(Planet(angleArg, radArg));
 }
 
-void Universe::testDrawing()
+void Universe::Simulate()
 {
-	for (int i = 0; i < 50; ++i)
+	for (int i = 0; i < 500; ++i)
 	{
+        for(Rocket& r : *rockets)
+        {
+            r.UpdateRocket(*planets);
+        }
 		for (Planet& a : *planets)
 		{
 			a.UpdatePos(i);
 		}
-		drawingObject.Draw();
-		Sleep(10);
+        Display();
+        al_rest(0.1);
 	}
 }
 
@@ -38,10 +43,9 @@ void Universe::CloseWindow()
 void Universe::LoadAssetsToDraw()
 {
     drawingObject.LoadPlanets(planets);
-    //..rockets
+    drawingObject.LoadRockets(rockets);
 }
 
-void Universe::ShellResolve(char choice)
 void Universe::MoveRocket(Rocket& r)
 {
     int tempX;
