@@ -1,6 +1,4 @@
-#ifndef PLANET_H
-#define PLANET_H
-
+#pragma once
 
 class Planet
 {
@@ -10,19 +8,24 @@ class Planet
     int xPos, yPos;
     double velocity;
 
-	static const int MASS = 3000;
-	static const int PLANETRADIUS = 10;
+	static int SUNMASS;
+	static int PLANETRADIUS;
+	static int CLOSESTORBIT;
+	static int G;
 
 public:
     Planet(double angleArg, unsigned int radArg);
     Planet() = delete;
 
     void UpdatePos(unsigned int time);
+	void CalcVel();
 
 	int GetXPos() const;
 	int GetYPos() const;
-	static int GetPLANETRADIUS();
-	static int GetPLANETMASS();
-};
+	int GetXVel(int time) const;
+	int GetYVel(int time) const;
 
-#endif
+	static void SetSUNMASS(int Arg);
+	static void SetCLOSESTORBIT(int Arg);
+	static void SetGCONST(int Arg);
+};

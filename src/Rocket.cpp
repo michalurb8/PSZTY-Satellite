@@ -4,11 +4,12 @@
 
 #include "Rocket.h"
 
-int Rocket::maxdist;
+int Rocket::MAXDIST;
+int Rocket::PLANETMASS;
 
 Rocket::Rocket(int xPos, int yPos, int xVel, int yVel)
 {
-    maxdist = 3;
+    MAXDIST = 3;
     alive = true;
     this->xPos = xPos;
     this->yPos = yPos;
@@ -62,20 +63,21 @@ void Rocket::UpdateRocket(const std::vector<Planet>& planets)
         tempX += (r.GetYPos() - p.GetYPos()) * (r.GetYPos() - p.GetYPos());
         tempX *= sqrt(tempX);
         tempX = (p.GetXPos() - r.GetXPos())/tempX;
-        tempX *= Planet::GetPLANETMASS()/10;
+        tempX *= PLANETMASS;
 
         tempY = (r.GetXPos() - p.GetXPos()) * (r.GetXPos() - p.GetXPos());
         tempY += (r.GetYPos() - p.GetYPos()) * (r.GetYPos() - p.GetYPos());
         tempY *= sqrt(tempY);
         tempY = (p.GetYPos() - r.GetYPos())/tempY;
-        tempY *= Planet::GetPLANETMASS()/10;
+        tempY *= PLANETMASS;
 
-        if(abs(p.GetXPos() - r.GetXPos()) + abs(p.GetYPos() - r.GetYPos()) > Rocket::maxdist)
+        if(abs(p.GetXPos() - r.GetXPos()) + abs(p.GetYPos() - r.GetYPos()) > MAXDIST)
         {
             r.Accel(tempX, tempY);
         }
         else
         {
+            std::cout << "rocket ded" << std::endl;
             r.alive = false;
             r.mindist = 0;
         }
@@ -88,4 +90,13 @@ void Rocket::CalcScore(const Planet& p)
     double distY = (this->GetYPos() - p.GetYPos());
     double dist = sqrt(distX * distX + distY * distY);
     if(mindist < dist) mindist = dist;
+}
+
+void Rocket::SetPLANETMASS(int Arg)
+{
+    PLANETMASS = Arg;
+}
+void Rocket::SetMAXDIST(int Arg)
+{
+    MAXDIST = Arg;
 }

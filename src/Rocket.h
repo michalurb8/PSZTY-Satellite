@@ -1,11 +1,9 @@
-#ifndef ROCKET_H
-#define ROCKET_H
+#pragma once
 
 #include "Planet.h"
 
 class Rocket
 {
-    static int maxdist;
     int mindist;
     double xPos, yPos;
     double xVel, yVel;
@@ -15,6 +13,9 @@ class Rocket
     int iTime;
     int iFi;
     int iV;
+
+    static int MAXDIST;
+    static int PLANETMASS;
     
 public:
     Rocket(int xPos, int yPos, int xVel, int yVel);
@@ -27,6 +28,7 @@ public:
     bool GetAlive() const;
     void CalcScore(const Planet& p);
     void UpdateRocket(const std::vector<Planet>& planets);
-};
 
-#endif
+    static void SetPLANETMASS(int Arg);
+    static void SetMAXDIST(int Arg);
+};

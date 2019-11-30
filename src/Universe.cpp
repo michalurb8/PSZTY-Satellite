@@ -4,13 +4,21 @@
 #include <allegro5/allegro.h>
 
 #include "Universe.h"
+#include "Planet.h"
 
-Universe::Universe()
+Universe::Universe(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
 {
+    planets = pArg;
+    rockets = rArg;
+    SetUniverseConstants();
+    LoadAssetsToDraw();
 }
+
 void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)
 {
-    planets->push_back(Planet(angleArg, radArg));
+    Planet temp = Planet(angleArg, radArg);
+    temp.CalcVel();
+    planets->push_back(temp);
 }
 
 void Universe::Simulate()
@@ -47,6 +55,16 @@ void Universe::LoadAssetsToDraw()
     drawingObject.LoadRockets(rockets);
 }
 
+void Universe::SetUniverseConstants()
+{
+    Rocket::SetPLANETMASS(PLANETMASS);
+    Rocket::SetMAXDIST(MAXDIST);
+
+    Planet::SetGCONST(G);
+    Planet::SetSUNMASS(SUNMASS);
+    Planet::SetCLOSESTORBIT(CLOSESTORBIT);
+}
+
 void Universe::MoveRocket(Rocket& r)
 {
     int tempX;
@@ -66,14 +84,3 @@ void Universe::MoveRocket(Rocket& r)
         r.Accel(tempX, tempY);
     }
 }
-
-void Universe::LoadPlanets(std::vector<Planet>* Arg)
-{
-	planets = Arg;
-}
-
-void Universe::LoadRockets(std::vector<Rocket>* Arg)
-{
-	rockets = Arg;
-}
-

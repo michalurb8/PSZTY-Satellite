@@ -27,3 +27,5 @@ clean:
 
 run: default
 	./exe
+
+reset: clean default

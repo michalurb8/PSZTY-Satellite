@@ -2,19 +2,18 @@
 #include <iostream>
 
 FlightControl::FlightControl()
+:universe(Universe(&planets, &rockets))
 {
 	for(int i = 0; i < 5; ++i)
 		planets.push_back(Planet(i, i*50 + 100));
 	for(int i = 0; i < 5; ++i)
 		rockets.push_back(Rocket(10*i, -20*i, 1, 2));
-	LoadAssets();
+	universe.LoadAssetsToDraw();
 }
 
-void FlightControl::LoadAssets()
+void FlightControl::AddPlanet(unsigned int angleArg, unsigned int radArg)
 {
-	universe.LoadPlanets(&planets);
-	universe.LoadRockets(&rockets);
-	universe.LoadAssetsToDraw();
+	universe.AddPlanet(angleArg, radArg);
 }
 
 void FlightControl::ShellResolve(char choice)

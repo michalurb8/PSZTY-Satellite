@@ -1,5 +1,4 @@
-#ifndef DRAWUNIVERSE_H
-#define DRAWUNIVERSE_H
+#pragma once
 
 #include <vector>
 #include <allegro5/allegro.h>
@@ -23,5 +22,3 @@ public:
     void LoadPlanets(std::vector<Planet>* Arg);
 	void LoadRockets(std::vector<Rocket>* Arg);
 };
-
-#endif
