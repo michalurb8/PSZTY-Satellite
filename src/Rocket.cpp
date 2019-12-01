@@ -64,7 +64,7 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets)
     double dist;
     double MGRRR; // - M*G / R^3
     r.Move();
-    for(unsigned int i = 0; i < planets->size(); ++i)
+    for(int i = 0; i < (int)planets->size(); ++i)
     {
         Planet& p = (*planets)[i];
 
@@ -87,7 +87,6 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets)
         {
             std::cout << "rocket ded" << std::endl;
             r.alive = false;
-            r.mindist = 0;
         }
     }
 }
@@ -97,8 +96,6 @@ void Rocket::MoveToPlanet(const Planet& p, int time)
 
     xPos = p.GetXPos() + MAXDIST * cos(iFi); 
     yPos = p.GetYPos() + MAXDIST * sin(iFi);
-
-    std::cout << p.GetXVel(time) << " " << p.GetYVel(time) <<  std::endl;
 
     xVel = p.GetXVel(time) + iV * cos(iFi);
     yVel = p.GetYVel(time) + iV * sin(iFi);

@@ -1,5 +1,6 @@
 #include "FlightControl.h"
 #include <iostream>
+#include <fstream>
 
 FlightControl::FlightControl()
 :universe(Universe(&planets, &rockets))
@@ -28,10 +29,14 @@ void FlightControl::ShellResolve(char choice)
 			"   h - Display this help message" << std::endl <<
 			"   d - Display generation" << std::endl <<
 			"   c - Close window" << std::endl <<
+			"   l - Load data from file input.txt" << std::endl <<
 			"   q - Exit" << std::endl;
 		return;
 	case 'c':
 		universe.CloseWindow();
+		break;
+	case 'l':
+		LoadDataFromFile();
 		break;
 	case 'd':
 		universe.Simulate();
@@ -53,4 +58,26 @@ void FlightControl::ShellLoop()
 		choice = temp[0];
 		ShellResolve(choice);
 	} while (choice != 'q');
+}
+void FlightControl::LoadDataFromFile()
+{
+	planets.clear();
+	std::ifstream input("input.txt");
+	if(!input.good())
+	{
+		std::cout << "Error reading file" << std::endl;
+		return;
+	}
+	int n, maxtime, home, target;
+	double radius, angle, maxdist;
+	input >> n;
+	for(int i = 0; i < n; ++i)
+	{
+		input >> angle >> radius;
+		AddPlanet(angle, radius);
+	}
+	input >> home >> target >> maxdist >> maxtime;
+	input.close();
+	universe.LoadFromFile(home, target, maxdist, maxtime);
+	std::cout << "Data loaded successfully" << std::endl;
 }

@@ -47,6 +47,14 @@ void Universe::ResetSimulation()
     }
 }
 
+void Universe::LoadFromFile(int homeArg, int targetArg, double distArg, int timeArg)
+{
+    HOME = homeArg;
+    TARGET = targetArg;
+    MAXDIST = distArg;
+    MAXTIME = timeArg;
+}
+
 void Universe::LoadAssetsToDraw()
 {
     drawingObject.LoadPlanets(planets, HOME, TARGET);

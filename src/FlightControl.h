@@ -13,7 +13,7 @@ class FlightControl
 
 	void LoadAssets();
     void AddPlanet(unsigned int angleArg, unsigned int radArg);
-	void LoadFile();
+	void LoadDataFromFile();
 public:
 	FlightControl();
 
