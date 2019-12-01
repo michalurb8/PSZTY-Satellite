@@ -12,8 +12,8 @@ class FlightControl
 	std::vector<Rocket> rockets;
 
 	void LoadAssets();
-	void AddPlanet();
     void AddPlanet(unsigned int angleArg, unsigned int radArg);
+	void LoadFile();
 public:
 	FlightControl();
 

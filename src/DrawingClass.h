@@ -8,19 +8,27 @@
 class DrawingClass
 {
     ALLEGRO_DISPLAY* disp;
+
     std::vector<Planet> *planets;
 	std::vector<Rocket> *rockets;
-	int displaySizeX;
-	int displaySizeY;
     int targetPlanetId;
+    int homePlanetId;
+
+	const int screenX = 1000;
+	const int screenY = 1000;
+    const int rocketSize = 5;
+    const int planetSize = 10;
+
+	void DrawPlanets();
+	void DrawRockets();
+
 public:
     DrawingClass();
     ~DrawingClass();
-    void Draw();
-	void DrawPlanets();
-	void DrawRockets();
-    void CloseWindow();
-    void LoadPlanets(std::vector<Planet>* Arg);
-    void LoadPlanets(std::vector<Planet> *Arg, int id);
+
+    void LoadPlanets(std::vector<Planet> *Arg, int homeId, int targetId);
 	void LoadRockets(std::vector<Rocket>* Arg);
+
+    void DisplayFrame();
+    void CloseWindow();
 };

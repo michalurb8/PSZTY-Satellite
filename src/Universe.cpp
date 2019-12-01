@@ -6,40 +6,56 @@
 #include "Universe.h"
 #include "Planet.h"
 
-Universe::Universe(std::vector<Planet>* parg, std::vector<Rocket>* rarg)
+Universe::Universe(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
 {
-    planets = parg;
-    rockets = rarg;
-    SetUniverseConstants();
+    planets = pArg;
+    rockets = rArg;
+    SetObjectConstants();
     LoadAssetsToDraw();
-}
-
-void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)
-{
-    planets->push_back(Planet(angleArg, radArg));
 }
 
 void Universe::Simulate()
 {
-	for (int i = 0; i < 50000; ++i)
+    ResetSimulation();
+	for(int time = 0; time < MAXTIME; ++time)
 	{
         for(Rocket& r : *rockets)
         {
+            if(time == r.GetTime())
+                r.MoveToPlanet((*planets)[HOME], time);
             if(r.GetAlive())
                 r.UpdateRocket(planets);
         }
-		for (Planet& a : *planets)
+		for(Planet& p : *planets)
 		{
-			a.UpdatePos(i);
+			p.UpdatePos(time);
 		}
         DisplayFrame();
-        //al_rest(0.01);
+        al_rest(0.01);
 	}
+}
+
+void Universe::ResetSimulation()
+{
+    for(Planet& p : *planets)
+    {
+        p.UpdatePos(0);
+    }
+    for(Rocket& r : *rockets)
+    {
+        r.SetAlive(false);
+    }
+}
+
+void Universe::LoadAssetsToDraw()
+{
+    drawingObject.LoadPlanets(planets, HOME, TARGET);
+    drawingObject.LoadRockets(rockets);
 }
 
 void Universe::DisplayFrame()
 {
-    drawingObject.Draw();
+    drawingObject.DisplayFrame();
 }
 
 void Universe::CloseWindow()
@@ -47,17 +63,12 @@ void Universe::CloseWindow()
 	drawingObject.CloseWindow();
 }
 
-void Universe::LoadAssetsToDraw()
-{
-    drawingObject.LoadPlanets(planets, TARGET);
-    drawingObject.LoadRockets(rockets);
-}
-
-void Universe::SetUniverseConstants()
+void Universe::SetObjectConstants()
 {
     Rocket::SetGCONST(G);
     Rocket::SetPLANETMASS(PLANETMASS);
     Rocket::SetMAXDIST(MAXDIST);
+    Rocket::SetTARGET(TARGET);
 
     Planet::SetGCONST(G);
     Planet::SetSUNMASS(SUNMASS);

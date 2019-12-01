@@ -40,13 +40,13 @@ int Planet::GetYPos() const
 	return yPos;
 }
 
-int Planet::GetXVel(int time) const
+double Planet::GetXVel(int time) const
 {
-	return -1 * velocity * radius * sin(initialAngle + velocity * time);
+	return -1 * velocity * radius * sin(initialAngle + time * velocity);
 }
-int Planet::GetYVel(int time) const
+double Planet::GetYVel(int time) const
 {
-	return velocity * radius * cos(initialAngle + velocity * time);
+	return velocity * radius * cos(initialAngle + time * velocity);
 }
 
 void Planet::SetSUNMASS(int Arg)

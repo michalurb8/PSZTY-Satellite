@@ -22,8 +22,8 @@ public:
 
 	int GetXPos() const;
 	int GetYPos() const;
-	int GetXVel(int time) const;
-	int GetYVel(int time) const;
+	double GetXVel(int time) const;
+	double GetYVel(int time) const;
 
 	static void SetSUNMASS(int Arg);
 	static void SetCLOSESTORBIT(int Arg);

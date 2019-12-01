@@ -5,15 +5,14 @@ FlightControl::FlightControl()
 :universe(Universe(&planets, &rockets))
 {
 	for(int i = 0; i < 5; ++i)
-		planets.push_back(Planet(i*2, i*100 + 100));
-	for(int i = 0; i < 50; ++i)
-		rockets.push_back(Rocket(i, -2*i, 0, 0));
-	universe.LoadAssetsToDraw();
+		planets.push_back(Planet(i*3, i*50 + 200));
+	for(int i = 0; i < 20; ++i)
+		rockets.push_back(Rocket(100*i, 0, 5));
 }
 
 void FlightControl::AddPlanet(unsigned int angleArg, unsigned int radArg)
 {
-	universe.AddPlanet(angleArg, radArg);
+	planets.push_back(Planet(angleArg, radArg));
 }
 
 void FlightControl::ShellResolve(char choice)

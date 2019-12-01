@@ -11,15 +11,18 @@ DrawingClass::DrawingClass()
     al_init();
     al_init_primitives_addon();
 	//al_init_image_addon();
-	
-	displaySizeX = 1000;
-	displaySizeY = 1000;
 }
 
-void DrawingClass::LoadPlanets(std::vector<Planet> *Arg, int id)
+DrawingClass::~DrawingClass()
+{
+    if(disp!= nullptr) al_destroy_display(disp);
+}
+
+void DrawingClass::LoadPlanets(std::vector<Planet> *Arg, int homeId, int targetId)
 {
     planets = Arg;
-	targetPlanetId = id;
+	homePlanetId = homeId;
+	targetPlanetId = targetId;
 }
 
 void DrawingClass::LoadRockets(std::vector<Rocket>* Arg)
@@ -27,9 +30,9 @@ void DrawingClass::LoadRockets(std::vector<Rocket>* Arg)
 	rockets = Arg;
 }
 
-void DrawingClass::Draw()
+void DrawingClass::DisplayFrame()
 {
-    if(!disp) disp = al_create_display(displaySizeX, displaySizeY);
+    if(!disp) disp = al_create_display(screenX, screenY);
     
 	al_clear_to_color(al_map_rgb(15,0,40));
 	DrawPlanets();
@@ -42,20 +45,22 @@ void DrawingClass::DrawPlanets()//hardcoded planet radius
 	//ALLEGRO_BITMAP *image = al_load_bitmap("C:/Users/Dell/3D Objects/planet.png");
 	for (Planet& p : *planets)
 	{
-		al_draw_filled_circle(p.GetXPos() + displaySizeX / 2, displaySizeY / 2 - p.GetYPos(), 10, al_map_rgb(100, 50, 0));
+		al_draw_filled_circle(p.GetXPos() + screenX/2, screenY/2 - p.GetYPos(), planetSize, al_map_rgb(100, 50, 0));
 		//al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), a.GetXPos() + displaySizeX / 2, displaySizeY / 2 - a.GetYPos(), 30, 30, 0);
 	}
-	Planet& p = (*planets)[targetPlanetId];
-	al_draw_circle(p.GetXPos() + displaySizeX / 2, displaySizeY / 2 - p.GetYPos(), 10, al_map_rgb(200, 100, 0), 3.0);
+	Planet& tar = (*planets)[targetPlanetId];
+	al_draw_circle(tar.GetXPos() + screenX/2, screenY/2 - tar.GetYPos(), planetSize, al_map_rgb(200, 100, 0), 0.3 * planetSize);
+	Planet& home = (*planets)[homePlanetId];
+	al_draw_circle(home.GetXPos() + screenX/2, screenY/2 - home.GetYPos(), planetSize, al_map_rgb(100, 50, 150), 0.3 * planetSize);
 
 }
 
-void DrawingClass::DrawRockets()//hardcoded rocket size
+void DrawingClass::DrawRockets()
 {
 	for (Rocket& r : *rockets)
 	{
 		if(r.GetAlive())
-			al_draw_filled_circle(r.GetXPos() + displaySizeX / 2, displaySizeY / 2 - r.GetYPos(), 5, al_map_rgb(0, 100, 0));
+			al_draw_filled_circle(r.GetXPos() + screenX/2, screenY/2 - r.GetYPos(), rocketSize, al_map_rgb(0, 100, 0));
 		//al_draw_scaled_bitmap(image, 0, 0, al_get_bitmap_width(image), al_get_bitmap_height(image), a.GetXPos() + displaySizeX / 2, displaySizeY / 2 - a.GetYPos(), 30, 30, 0);
 	}
 }
@@ -64,9 +69,4 @@ void DrawingClass::CloseWindow()
 {
     al_destroy_display(disp);
     disp = nullptr;
-}
-
-DrawingClass::~DrawingClass()
-{
-    if(disp!= nullptr) al_destroy_display(disp);
 }

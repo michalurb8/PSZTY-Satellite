@@ -7,14 +7,14 @@
 int Rocket::MAXDIST;
 int Rocket::PLANETMASS;
 int Rocket::G;
+int Rocket::TARGET;
 
-Rocket::Rocket(int xPos, int yPos, int xVel, int yVel)
+Rocket::Rocket(int timeArg, double fiArg, double vArg)
 {
     alive = true;
-    this->xPos = xPos;
-    this->yPos = yPos;
-    this->xVel = xVel;
-    this->yVel = yVel;
+    iV = vArg;
+    iTime = timeArg;
+    iFi = fiArg;
 }
 
 void Rocket::Move()
@@ -50,6 +50,10 @@ double Rocket::GetYVel() const
 {
     return yVel;
 }
+int Rocket::GetTime() const
+{
+    return iTime;
+}
 
 void Rocket::UpdateRocket(std::vector<Planet>* planets)
 {
@@ -74,6 +78,10 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets)
         if(dist > MAXDIST)
         {
             r.Accel(MGRRR * deltaX, MGRRR * deltaY);
+            if(i == TARGET && dist < r.mindist) 
+            {
+                r.mindist = dist;
+            }
         }
         else
         {
@@ -83,18 +91,31 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets)
         }
     }
 }
-
-int Rocket::GetScore(const Planet& p)
+void Rocket::MoveToPlanet(const Planet& p, int time)
 {
-    double distX = (this->GetXPos() - p.GetXPos());
-    double distY = (this->GetYPos() - p.GetYPos());
-    double dist = sqrt(distX * distX + distY * distY);
-    return dist;
+    alive = true;
+
+    xPos = p.GetXPos() + MAXDIST * cos(iFi); 
+    yPos = p.GetYPos() + MAXDIST * sin(iFi);
+
+    std::cout << p.GetXVel(time) << " " << p.GetYVel(time) <<  std::endl;
+
+    xVel = p.GetXVel(time) + iV * cos(iFi);
+    yVel = p.GetYVel(time) + iV * sin(iFi);
+
+    mindist = 10000;
+
+    Move();//move it
 }
 
 void Rocket::SetPLANETMASS(int Arg)
 {
     PLANETMASS = Arg;
+}
+
+void Rocket::SetTARGET(int Arg)
+{
+    TARGET = Arg;
 }
 
 void Rocket::SetMAXDIST(int Arg)
@@ -105,4 +126,8 @@ void Rocket::SetMAXDIST(int Arg)
 void Rocket::SetGCONST(int Arg)
 {
     G = Arg;
+}
+void Rocket::SetAlive(bool Arg)
+{
+    alive = Arg;
 }
