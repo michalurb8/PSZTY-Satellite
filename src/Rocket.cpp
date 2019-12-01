@@ -6,10 +6,10 @@
 
 int Rocket::MAXDIST;
 int Rocket::PLANETMASS;
+int Rocket::G;
 
 Rocket::Rocket(int xPos, int yPos, int xVel, int yVel)
 {
-    MAXDIST = 3;
     alive = true;
     this->xPos = xPos;
     this->yPos = yPos;
@@ -51,29 +51,29 @@ double Rocket::GetYVel() const
     return yVel;
 }
 
-void Rocket::UpdateRocket(const std::vector<Planet>& planets)
+void Rocket::UpdateRocket(std::vector<Planet>* planets)
 {
     Rocket& r = *this;
-    double tempX;
-    double tempY;
+    double deltaX;
+    double deltaY;
+    double distsq;
+    double dist;
+    double MGRRR; // - M*G / R^3
     r.Move();
-    for(auto p : planets)
+    for(unsigned int i = 0; i < planets->size(); ++i)
     {
-        tempX = (r.GetXPos() - p.GetXPos()) * (r.GetXPos() - p.GetXPos());
-        tempX += (r.GetYPos() - p.GetYPos()) * (r.GetYPos() - p.GetYPos());
-        tempX *= sqrt(tempX);
-        tempX = (p.GetXPos() - r.GetXPos())/tempX;
-        tempX *= PLANETMASS;
+        Planet& p = (*planets)[i];
 
-        tempY = (r.GetXPos() - p.GetXPos()) * (r.GetXPos() - p.GetXPos());
-        tempY += (r.GetYPos() - p.GetYPos()) * (r.GetYPos() - p.GetYPos());
-        tempY *= sqrt(tempY);
-        tempY = (p.GetYPos() - r.GetYPos())/tempY;
-        tempY *= PLANETMASS;
+        deltaX = (r.GetXPos() - p.GetXPos());
+        deltaY = (r.GetYPos() - p.GetYPos());
+        distsq = (deltaX * deltaX) + (deltaY * deltaY);
+        dist = sqrt(distsq);
 
-        if(abs(p.GetXPos() - r.GetXPos()) + abs(p.GetYPos() - r.GetYPos()) > MAXDIST)
+        MGRRR = -1 * G * PLANETMASS / (distsq * dist);
+
+        if(dist > MAXDIST)
         {
-            r.Accel(tempX, tempY);
+            r.Accel(MGRRR * deltaX, MGRRR * deltaY);
         }
         else
         {
@@ -84,19 +84,25 @@ void Rocket::UpdateRocket(const std::vector<Planet>& planets)
     }
 }
 
-void Rocket::CalcScore(const Planet& p)
+int Rocket::GetScore(const Planet& p)
 {
     double distX = (this->GetXPos() - p.GetXPos());
     double distY = (this->GetYPos() - p.GetYPos());
     double dist = sqrt(distX * distX + distY * distY);
-    if(mindist < dist) mindist = dist;
+    return dist;
 }
 
 void Rocket::SetPLANETMASS(int Arg)
 {
     PLANETMASS = Arg;
 }
+
 void Rocket::SetMAXDIST(int Arg)
 {
     MAXDIST = Arg;
+}
+
+void Rocket::SetGCONST(int Arg)
+{
+    G = Arg;
 }

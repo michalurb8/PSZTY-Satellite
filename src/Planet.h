@@ -18,7 +18,7 @@ public:
     Planet() = delete;
 
     void UpdatePos(unsigned int time);
-	void CalcVel();
+	void SetInitialVel();
 
 	int GetXPos() const;
 	int GetYPos() const;

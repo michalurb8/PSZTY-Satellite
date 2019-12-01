@@ -16,19 +16,22 @@ class Rocket
 
     static int MAXDIST;
     static int PLANETMASS;
+    static int G;
+
+    void Accel(double xArg, double yArg);
+    int GetScore(const Planet& p);
     
 public:
     Rocket(int xPos, int yPos, int xVel, int yVel);
     void Move();
-    void Accel(double xArg, double yArg);
     double GetXPos() const;
     double GetYPos() const;
     double GetXVel() const;
     double GetYVel() const;
     bool GetAlive() const;
-    void CalcScore(const Planet& p);
-    void UpdateRocket(const std::vector<Planet>& planets);
+    void UpdateRocket(std::vector<Planet>* planets);
 
     static void SetPLANETMASS(int Arg);
     static void SetMAXDIST(int Arg);
+    static void SetGCONST(int Arg);
 };

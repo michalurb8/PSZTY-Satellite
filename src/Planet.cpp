@@ -12,7 +12,7 @@ Planet::Planet(double angleArg, unsigned int radArg)
 radius(radArg)
 {
 	UpdatePos(0); //Move the created planet to its correct position
-	CalcVel(); //Set the created planet's velocity
+	SetInitialVel(); //Set the created planet's velocity
 }
 
 void Planet::UpdatePos(unsigned int time) //Move the Planet to its current position
@@ -21,7 +21,7 @@ void Planet::UpdatePos(unsigned int time) //Move the Planet to its current posit
     yPos = radius * sin(initialAngle + velocity*time);
 }
 
-void Planet::CalcVel() //Calculate planet's velocity, runs once
+void Planet::SetInitialVel() //Calculate planet's velocity, runs once
 {
 	// formula for the angular velocity from: gravity = centripetal force
 	// if the planet is too close to the center of the universe, its velocity is capped
@@ -52,15 +52,12 @@ int Planet::GetYVel(int time) const
 void Planet::SetSUNMASS(int Arg)
 {
 	SUNMASS = Arg;
-	std::cout << "SUNMASS SET TO " << SUNMASS << std::endl;
 }
 void Planet::SetCLOSESTORBIT(int Arg)
 {
 	CLOSESTORBIT = Arg;	
-	std::cout << "CLOSEST SET TO " << CLOSESTORBIT << std::endl;
 }
 void Planet::SetGCONST(int Arg)
 {
 	G = Arg;
-	std::cout << "G SET TO " << G << std::endl;
 }

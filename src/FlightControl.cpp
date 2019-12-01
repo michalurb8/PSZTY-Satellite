@@ -5,9 +5,9 @@ FlightControl::FlightControl()
 :universe(Universe(&planets, &rockets))
 {
 	for(int i = 0; i < 5; ++i)
-		planets.push_back(Planet(i, i*50 + 100));
-	for(int i = 0; i < 5; ++i)
-		rockets.push_back(Rocket(10*i, -20*i, 1, 2));
+		planets.push_back(Planet(i*2, i*100 + 100));
+	for(int i = 0; i < 50; ++i)
+		rockets.push_back(Rocket(i, -2*i, 0, 0));
 	universe.LoadAssetsToDraw();
 }
 

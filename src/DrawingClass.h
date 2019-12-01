@@ -12,6 +12,7 @@ class DrawingClass
 	std::vector<Rocket> *rockets;
 	int displaySizeX;
 	int displaySizeY;
+    int targetPlanetId;
 public:
     DrawingClass();
     ~DrawingClass();
@@ -20,5 +21,6 @@ public:
 	void DrawRockets();
     void CloseWindow();
     void LoadPlanets(std::vector<Planet>* Arg);
+    void LoadPlanets(std::vector<Planet> *Arg, int id);
 	void LoadRockets(std::vector<Rocket>* Arg);
 };

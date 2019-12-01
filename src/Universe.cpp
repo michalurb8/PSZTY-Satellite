@@ -6,19 +6,17 @@
 #include "Universe.h"
 #include "Planet.h"
 
-Universe::Universe(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
+Universe::Universe(std::vector<Planet>* parg, std::vector<Rocket>* rarg)
 {
-    planets = pArg;
-    rockets = rArg;
+    planets = parg;
+    rockets = rarg;
     SetUniverseConstants();
     LoadAssetsToDraw();
 }
 
 void Universe::AddPlanet(unsigned int angleArg, unsigned int radArg)
 {
-    Planet temp = Planet(angleArg, radArg);
-    temp.CalcVel();
-    planets->push_back(temp);
+    planets->push_back(Planet(angleArg, radArg));
 }
 
 void Universe::Simulate()
@@ -28,18 +26,18 @@ void Universe::Simulate()
         for(Rocket& r : *rockets)
         {
             if(r.GetAlive())
-                r.UpdateRocket(*planets);
+                r.UpdateRocket(planets);
         }
 		for (Planet& a : *planets)
 		{
 			a.UpdatePos(i);
 		}
-        Display();
-        al_rest(0.01);
+        DisplayFrame();
+        //al_rest(0.01);
 	}
 }
 
-void Universe::Display()
+void Universe::DisplayFrame()
 {
     drawingObject.Draw();
 }
@@ -51,36 +49,17 @@ void Universe::CloseWindow()
 
 void Universe::LoadAssetsToDraw()
 {
-    drawingObject.LoadPlanets(planets);
+    drawingObject.LoadPlanets(planets, TARGET);
     drawingObject.LoadRockets(rockets);
 }
 
 void Universe::SetUniverseConstants()
 {
+    Rocket::SetGCONST(G);
     Rocket::SetPLANETMASS(PLANETMASS);
     Rocket::SetMAXDIST(MAXDIST);
 
     Planet::SetGCONST(G);
     Planet::SetSUNMASS(SUNMASS);
     Planet::SetCLOSESTORBIT(CLOSESTORBIT);
-}
-
-void Universe::MoveRocket(Rocket& r)
-{
-    int tempX;
-    int tempY;
-    for(auto p : *planets)
-    {
-        r.Move();
-        tempX = (r.GetXPos() - p.GetXPos()) * (r.GetXPos() - p.GetXPos());
-        tempX += (r.GetYPos() - p.GetYPos()) * (r.GetYPos() - p.GetYPos());
-        tempX *= sqrt(tempX);
-        tempX = (p.GetXPos() - r.GetXPos())/tempX;
-
-        tempY = (r.GetXPos() - p.GetXPos()) * (r.GetXPos() - p.GetXPos());
-        tempY += (r.GetYPos() - p.GetYPos()) * (r.GetYPos() - p.GetYPos());
-        tempY *= sqrt(tempY);
-        tempY = (p.GetXPos() - r.GetXPos())/tempY;
-        r.Accel(tempX, tempY);
-    }
 }
