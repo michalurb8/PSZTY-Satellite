@@ -22,7 +22,7 @@ void Generation::LoadValues(int maxtime)
 	MAXTIME = maxtime;	
 }
 
-void Generation::Reproduce()
+void Generation::Reproduce()//produce lambda babies
 {
 	std::vector<Rocket> parents;
 	std::vector<Rocket> babies;
@@ -31,14 +31,13 @@ void Generation::Reproduce()
 
 	Crossbreeding(&parents, &babies);
 
-	//add babies
 	for (Rocket r : babies)
 	{
 		rockets->push_back(r);
 	}
 }
 
-void Generation::SelectParents(std::vector<Rocket>* selectedRockets)
+void Generation::SelectParents(std::vector<Rocket>* selectedRockets)//select random parents for breeding
 {
 	for (int i = 0; i < lambda; ++i)
 	{
@@ -47,7 +46,7 @@ void Generation::SelectParents(std::vector<Rocket>* selectedRockets)
 }
 
 void Generation::Crossbreeding(std::vector<Rocket>* parents, std::vector<Rocket>* babies)
-{
+{//breed every consecutive pair of rockets, create lambda baby rockets
 	int tempTime, tempFi, tempV;
 	for (std::vector<Rocket>::iterator i = parents->begin(); i != parents->end(); ++i)
 	{
@@ -63,11 +62,17 @@ void Generation::Crossbreeding(std::vector<Rocket>* parents, std::vector<Rocket>
 	}
 }
 
-void Generation::Kill()
+void Generation::Kill() //kill all but lambda of the best rockest
 {
 	std::sort(rockets->begin(), rockets->end());
 	while((int)rockets->size() > lambda)
 	{
 		rockets->pop_back();
 	}
+}
+
+Rocket Generation::GetBest() //return the rocket with the best score
+{
+	std::sort(rockets->begin(), rockets->end());
+	return (*rockets)[0];
 }

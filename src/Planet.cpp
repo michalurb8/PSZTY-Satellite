@@ -21,7 +21,7 @@ void Planet::UpdatePos(unsigned int time) //Move the Planet to its current posit
     yPos = radius * sin(initialAngle + velocity*time);
 }
 
-void Planet::SetInitialVel() //Calculate planet's velocity, runs once
+void Planet::SetInitialVel()//Calculate planet's velocity, runs once
 {
 	// formula for the angular velocity from: gravity = centripetal force
 	// if the planet is too close to the center of the universe, its velocity is capped

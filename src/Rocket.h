@@ -5,13 +5,11 @@
 
 class Rocket
 {
-    double mindist;
-    double bonus;			//mindist + bonus == score of the rocket (J value)
+    double mindist;         //mindist == score
 
     double xPos, yPos;
     double xVel, yVel;
-
-    bool alive;				//crashed => dead
+    bool alive;				//crashed planets are not drawn or simulated
 
     int iTime;
     double iFi;
@@ -24,7 +22,6 @@ class Rocket
 
     void Accel(double xArg, double yArg);
     void Move();
-    int GetScore(const Planet& p) const;
     
 public:
     Rocket() = delete;
@@ -35,13 +32,13 @@ public:
     double GetXVel() const;
     double GetYVel() const;
     int GetTime() const;
-	int GetFi() const;
-	int GetV() const;
+	double GetFi() const;
+	double GetV() const;
     bool GetAlive() const;
     void SetAlive(bool Arg);
 
-    void UpdateRocket(std::vector<Planet>* planets, int time);		//update rockets current position
-    void MoveToPlanet(const Planet& p, int time);			//resolving first move of the rocket after launch
+    void UpdateRocket(std::vector<Planet>* planets, int time);	//update rockets current position and score
+    void MoveToPlanet(const Planet& p, int time);			    //Launch the rocket
 
     static void SetPLANETMASS(int Arg);
     static void SetGCONST(int Arg);

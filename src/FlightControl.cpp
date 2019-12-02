@@ -8,8 +8,6 @@ FlightControl::FlightControl()
 	srand(time(NULL));
 
 	dataCorrect = false;
-
-	std::cout << "OK" << std::endl;
 }
 
 void FlightControl::AddPlanet(unsigned int angleArg, unsigned int radArg)
@@ -34,6 +32,7 @@ void FlightControl::ShellResolve(char choice)
 			"   p - Pass generation" << std::endl <<
 			"   P - Pass 10 generations" << std::endl <<
 			"   g - Generate random data" << std::endl <<
+			"   r - Show the result" << std::endl <<
 			"   q - Exit" << std::endl;
 		return;
 	case 'c':
@@ -60,6 +59,14 @@ void FlightControl::ShellResolve(char choice)
 	case 'd':
 		if(dataCorrect)
 			universe.Simulate(1);
+		else
+			std::cout << "Please load data" << std::endl;
+		break;
+	case 'r':
+		if(dataCorrect)
+			std::cout << "Time of the launch: " << generation.GetBest().GetTime() << std::endl
+					  << "Angle of the launch: " << generation.GetBest().GetFi() << std::endl
+					  << "Velocity of the launch: " << generation.GetBest().GetV() << std::endl;
 		else
 			std::cout << "Please load data" << std::endl;
 		break;
@@ -109,7 +116,6 @@ void FlightControl::LoadDataFromFile()
 	universe.Init(&planets, &rockets);
 	generation.Init(&rockets);
 
-
 	dataCorrect = true;
 
 	std::cout << "Data loaded successfully" << std::endl;
@@ -136,4 +142,5 @@ void FlightControl::Generate()
 	output << 5 << std::endl;
 	output << 1500 << std::endl;
 	output.close();
+	std::cout << "Data generated successfully" << std::endl;
 }

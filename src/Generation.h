@@ -12,6 +12,7 @@ class Generation
 	void SelectParents(std::vector<Rocket>* selectedRockets);
 	void Crossbreeding(std::vector<Rocket>* parents, std::vector<Rocket>* babies);
 public:
+	Rocket GetBest();
 	void LoadValues(int maxtime);
 	void Init(std::vector<Rocket>* rArg);
 	void Reproduce();		//reproduce and add descendants to rockets

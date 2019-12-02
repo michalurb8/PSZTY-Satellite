@@ -12,7 +12,6 @@ int Rocket::TARGET;
 Rocket::Rocket(int timeArg, double fiArg, double vArg)
 {
     mindist = INT16_MAX;
-    bonus = 0;
 
     alive = false;
     iV = vArg;
@@ -24,11 +23,6 @@ void Rocket::Move()
 {
     xPos += xVel;
     yPos += yVel;
-}
-
-int Rocket::GetScore(const Planet& p) const
-{
-	return mindist;
 }
 
 void Rocket::Accel(double xArg, double yArg)
@@ -63,12 +57,12 @@ int Rocket::GetTime() const
     return iTime;
 }
 
-int Rocket::GetFi() const
+double Rocket::GetFi() const
 {
 	return iFi;
 }
 
-int Rocket::GetV() const
+double Rocket::GetV() const
 {
 	return iV;
 }
@@ -130,7 +124,6 @@ void Rocket::MoveToPlanet(const Planet& p, int time)		//resolve first move after
 
     mindist = INT16_MAX;
 
-    Move();
 }
 
 void Rocket::SetPLANETMASS(int Arg)
