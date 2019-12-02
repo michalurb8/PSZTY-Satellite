@@ -7,6 +7,8 @@
 
 class FlightControl
 {
+	bool dataCorrect;
+
 	Universe universe;
 	Generation generation;
 
@@ -16,6 +18,7 @@ class FlightControl
 	void LoadAssets();
     void AddPlanet(unsigned int angleArg, unsigned int radArg);
 	void LoadDataFromFile();
+	void Generate();
 public:
 	FlightControl();
  	void PassGeneration();

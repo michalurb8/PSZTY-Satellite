@@ -5,14 +5,16 @@
 
 class Rocket
 {
-    double mindist;			//score of the rocket (J function)
+    double mindist;
+    double bonus;			//mindist + bonus == score of the rocket (J value)
+
     double xPos, yPos;
     double xVel, yVel;
 
     bool alive;				//crashed => dead
 
     int iTime;
-    int iFi;
+    double iFi;
     double iV;
 
     static int MAXDIST;		//at that distance (between rocket and planet) rocket crushes
@@ -42,9 +44,9 @@ public:
     void MoveToPlanet(const Planet& p, int time);			//resolving first move of the rocket after launch
 
     static void SetPLANETMASS(int Arg);
-    static void SetMAXDIST(int Arg);
     static void SetGCONST(int Arg);
     static void SetTARGET(int Arg);
+    static void SetMAXDIST(int Arg);
 	
 	bool operator<(const Rocket& other);
 };

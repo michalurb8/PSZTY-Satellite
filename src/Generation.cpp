@@ -7,15 +7,19 @@
 void Generation::Init(std::vector<Rocket>* rArg)
 {
 	rockets = rArg;
-	for(auto a : *rockets) std::cout << a.GetAlive() << std::endl;
 	rockets->clear();
 	srand(time(NULL));
 
 	for(int i = 0; i < 300; ++i)
 	{
-		Rocket temp = Rocket(rand()%500, (double)(rand()%22), rand()%8);///import maxtime TODO
+		Rocket temp = Rocket(rand()%MAXTIME, (double)(rand()%22), rand()%3 + 3);///import maxtime TODO
 		rockets->push_back(temp);
 	}
+}
+
+void Generation::LoadValues(int maxtime)
+{
+	MAXTIME = maxtime;	
 }
 
 void Generation::Reproduce()
@@ -62,7 +66,7 @@ void Generation::Crossbreeding(std::vector<Rocket>* parents, std::vector<Rocket>
 void Generation::Kill()
 {
 	std::sort(rockets->begin(), rockets->end());
-	while(rockets->size() > lambda)
+	while((int)rockets->size() > lambda)
 	{
 		rockets->pop_back();
 	}

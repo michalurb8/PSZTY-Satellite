@@ -6,10 +6,10 @@
 FlightControl::FlightControl()
 {
 	srand(time(NULL));
-	universe.Init(&planets, &rockets);
-	generation.Init(&rockets);
-	for(int i = 0; i < 15; ++i)
-		planets.push_back(Planet((double)(rand()%220)/10, rand()%500));
+
+	dataCorrect = false;
+
+	std::cout << "OK" << std::endl;
 }
 
 void FlightControl::AddPlanet(unsigned int angleArg, unsigned int radArg)
@@ -32,6 +32,8 @@ void FlightControl::ShellResolve(char choice)
 			"   c - Close window" << std::endl <<
 			"   l - Load data from file input.txt" << std::endl <<
 			"   p - Pass generation" << std::endl <<
+			"   P - Pass 10 generations" << std::endl <<
+			"   g - Generate random data" << std::endl <<
 			"   q - Exit" << std::endl;
 		return;
 	case 'c':
@@ -40,11 +42,26 @@ void FlightControl::ShellResolve(char choice)
 	case 'l':
 		LoadDataFromFile();
 		break;
+	case 'g':
+		Generate();
+		break;
 	case 'p':
-		PassGeneration();
+		if(dataCorrect)
+			PassGeneration();
+		else
+			std::cout << "Please load data" << std::endl;
+		break;
+	case 'P':
+		if(dataCorrect)
+			for(int i = 0; i < 10; ++i) PassGeneration();
+		else
+			std::cout << "Please load data" << std::endl;
 		break;
 	case 'd':
-		universe.Simulate(1);
+		if(dataCorrect)
+			universe.Simulate(1);
+		else
+			std::cout << "Please load data" << std::endl;
 		break;
 	default:
 		std::cout << "Unknown command. Try 'h' for help." << std::endl;
@@ -67,8 +84,9 @@ void FlightControl::ShellLoop()
 
 void FlightControl::LoadDataFromFile()
 {
+    universe.SetObjectConstants();
 	planets.clear();
-	std::ifstream input("C:\\Users\\Dell\\source\\repos\\PSZTY-Satellite\\src\\input.txt");
+	std::ifstream input("input.txt");
 	if(!input.good())
 	{
 		std::cout << "Error reading file" << std::endl;
@@ -84,7 +102,16 @@ void FlightControl::LoadDataFromFile()
 	}
 	input >> home >> target >> maxdist >> maxtime;
 	input.close();
-	universe.LoadFromFile(home, target, maxdist, maxtime);
+
+	universe.LoadValues(home, target, maxdist, maxtime);
+	generation.LoadValues(maxtime);
+
+	universe.Init(&planets, &rockets);
+	generation.Init(&rockets);
+
+
+	dataCorrect = true;
+
 	std::cout << "Data loaded successfully" << std::endl;
 }
 
@@ -93,4 +120,20 @@ void FlightControl::PassGeneration()
 	generation.Reproduce();
 	universe.Simulate(0);
 	generation.Kill();
+}
+
+void FlightControl::Generate()
+{
+	std::ofstream output("input.txt");
+	int n = rand()%10 + 10;
+	output << n << std::endl;
+	for(int i = 0; i < n; ++i)
+	{
+		output << rand()%22 << " " << rand()%500 << std::endl;
+	}
+	output << 0 << std::endl;
+	output << 1 << std::endl;
+	output << 5 << std::endl;
+	output << 1500 << std::endl;
+	output.close();
 }

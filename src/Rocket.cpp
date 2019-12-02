@@ -12,6 +12,8 @@ int Rocket::TARGET;
 Rocket::Rocket(int timeArg, double fiArg, double vArg)
 {
     mindist = INT16_MAX;
+    bonus = 0;
+
     alive = false;
     iV = vArg;
     iTime = timeArg;
@@ -108,13 +110,10 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets, int time)
         }
 		else //crush
         {
-            /*
             if(i == TARGET)
             {
                 mindist = 0;
             }
-            else mindist += 5;
-            */
             r.alive = false;
         }
     }
@@ -131,8 +130,7 @@ void Rocket::MoveToPlanet(const Planet& p, int time)		//resolve first move after
 
     mindist = INT16_MAX;
 
-    Move();//move it
-    Move();//move it
+    Move();
 }
 
 void Rocket::SetPLANETMASS(int Arg)
@@ -140,21 +138,21 @@ void Rocket::SetPLANETMASS(int Arg)
     PLANETMASS = Arg;
 }
 
-void Rocket::SetTARGET(int Arg)
+void Rocket::SetGCONST(int Arg)
 {
-    TARGET = Arg;
+    G = Arg;
 }
-
 
 void Rocket::SetMAXDIST(int Arg)
 {
     MAXDIST = Arg;
 }
 
-void Rocket::SetGCONST(int Arg)
+void Rocket::SetTARGET(int Arg)
 {
-    G = Arg;
+    TARGET = Arg;
 }
+
 void Rocket::SetAlive(bool Arg)
 {
     alive = Arg;

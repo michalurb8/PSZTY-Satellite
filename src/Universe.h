@@ -14,10 +14,10 @@ class Universe
     const int G = 5;
     const int CLOSESTORBIT = 50;
 
-    int MAXDIST = 5; //to be read from file
-    int MAXTIME = 500; //to be read
-    int TARGET = 0; //to be read
-    int HOME = 4; //to be read
+    int MAXDIST;
+    int MAXTIME;
+    int TARGET;
+    int HOME;
 
     std::vector<Planet> *planets;
 	std::vector<Rocket> *rockets;
@@ -29,7 +29,7 @@ public:
 
     void SetObjectConstants();	//load constans to Rocket:: and Planet::
     void LoadAssetsToDraw();	//load stuff to drawingObject
-    void LoadFromFile(int homeArg, int targetArg, double distArg, int timeArg);
+    void LoadValues(int homeArg, int targetArg, double distArg, int timeArg);
 
 	void Simulate(bool drawingFlag);			//simulate change of universe in MAXTIME
     void ResetSimulation();

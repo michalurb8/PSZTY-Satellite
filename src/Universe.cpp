@@ -10,7 +10,6 @@ void Universe::Init(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
 {
     planets = pArg;
     rockets = rArg;
-    SetObjectConstants();
     LoadAssetsToDraw();
 }
 
@@ -28,7 +27,7 @@ void Universe::Simulate(bool drawingFlag)
 		}
         for(Rocket& r : *rockets)
         {
-			//launch rocket(s) if necessary
+			//launch rocket if necessary
             if(time == r.GetTime())
                 r.MoveToPlanet((*planets)[HOME], time);
 			
@@ -55,12 +54,14 @@ void Universe::ResetSimulation()
     }
 }
 
-void Universe::LoadFromFile(int homeArg, int targetArg, double distArg, int timeArg)
+void Universe::LoadValues(int homeArg, int targetArg, double distArg, int timeArg)
 {
     HOME = homeArg;
     TARGET = targetArg;
     MAXDIST = distArg;
     MAXTIME = timeArg;
+    Rocket::SetTARGET(targetArg);
+    Rocket::SetMAXDIST(distArg);
 }
 
 void Universe::LoadAssetsToDraw()
@@ -83,8 +84,6 @@ void Universe::SetObjectConstants()
 {
     Rocket::SetGCONST(G);
     Rocket::SetPLANETMASS(PLANETMASS);
-    Rocket::SetMAXDIST(MAXDIST);
-    Rocket::SetTARGET(TARGET);
 
     Planet::SetGCONST(G);
     Planet::SetSUNMASS(SUNMASS);
