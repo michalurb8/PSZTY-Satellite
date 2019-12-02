@@ -63,7 +63,7 @@ void FlightControl::ShellLoop()
 void FlightControl::LoadDataFromFile()
 {
 	planets.clear();
-	std::ifstream input("input.txt");
+	std::ifstream input("C:\\Users\\Dell\\source\\repos\\PSZTY-Satellite\\src\\input.txt");
 	if(!input.good())
 	{
 		std::cout << "Error reading file" << std::endl;

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vector>
 #include "Planet.h"
 #include <vector>
 
@@ -33,6 +33,8 @@ public:
     double GetXVel() const;
     double GetYVel() const;
     int GetTime() const;
+	int GetFi() const;
+	int GetV() const;
     bool GetAlive() const;
     void SetAlive(bool Arg);
 
@@ -43,4 +45,6 @@ public:
     static void SetMAXDIST(int Arg);
     static void SetGCONST(int Arg);
     static void SetTARGET(int Arg);
+	
+	bool operator<(const Rocket& other);
 };
