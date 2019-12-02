@@ -1,8 +1,8 @@
 CF = -Wall -pedantic -std=c++11 -O3
 LF = -lallegro -lallegro_primitives
 
-default: main.o Universe.o Planet.o DrawingClass.o Rocket.o FlightControl.o
-	g++ main.o Universe.o Planet.o DrawingClass.o Rocket.o FlightControl.o -o exe $(LF) 
+default: main.o Universe.o Planet.o DrawingClass.o Rocket.o FlightControl.o Generation.o
+	g++ main.o Universe.o Planet.o DrawingClass.o Rocket.o FlightControl.o Generation.o -o exe $(LF) 
 
 main.o: main.cpp
 	g++ $(CF) -c main.cpp -o main.o
@@ -21,6 +21,9 @@ Rocket.o: Rocket.cpp Rocket.h
 
 FlightControl.o: FlightControl.cpp FlightControl.h
 	g++ $(CF) -c FlightControl.cpp -o FlightControl.o
+
+Generation.o: Generation.cpp Generation.h
+	g++ $(CF) -c Generation.cpp -o Generation.o
 
 clean:
 	rm -f *.o exe

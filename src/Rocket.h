@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Planet.h"
+#include <vector>
 
 class Rocket
 {
