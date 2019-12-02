@@ -60,6 +60,16 @@ int Rocket::GetTime() const
     return iTime;
 }
 
+int Rocket::GetFi() const
+{
+	return iFi;
+}
+
+int Rocket::GetV() const
+{
+	return iV;
+}
+
 void Rocket::UpdateRocket(std::vector<Planet>* planets)
 {
     Rocket& r = *this;
@@ -127,6 +137,7 @@ void Rocket::SetTARGET(int Arg)
     TARGET = Arg;
 }
 
+
 void Rocket::SetMAXDIST(int Arg)
 {
     MAXDIST = Arg;
@@ -139,4 +150,9 @@ void Rocket::SetGCONST(int Arg)
 void Rocket::SetAlive(bool Arg)
 {
     alive = Arg;
+}
+
+bool Rocket::operator<(const Rocket& other)
+{
+	return this->mindist < other.mindist;
 }

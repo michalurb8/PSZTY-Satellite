@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vector>
 #include "Planet.h"
 
 class Rocket
@@ -12,7 +12,7 @@ class Rocket
 
     int iTime;				//launch time
     int iFi;				//launch angle
-    int iV;					//launch velocity
+    double iV;					//launch velocity
 
     static int MAXDIST;		//at that distance (between rocket and planet) rocket crushes
     static int PLANETMASS;
@@ -32,6 +32,8 @@ public:
     double GetXVel() const;
     double GetYVel() const;
     int GetTime() const;
+	int GetFi() const;
+	int GetV() const;
     bool GetAlive() const;
     void SetAlive(bool Arg);
 
@@ -42,4 +44,6 @@ public:
     static void SetMAXDIST(int Arg);
     static void SetGCONST(int Arg);
     static void SetTARGET(int Arg);
+	
+	bool operator<(const Rocket& other);
 };
