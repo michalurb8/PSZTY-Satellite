@@ -17,19 +17,28 @@ Universe::Universe(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
 void Universe::Simulate()
 {
     ResetSimulation();
+
+	//time loop
 	for(int time = 0; time < MAXTIME; ++time)
 	{
+		// move every rocket
         for(Rocket& r : *rockets)
         {
+			//launch rocket(s) if necessary
             if(time == r.GetTime())
                 r.MoveToPlanet((*planets)[HOME], time);
+			
             if(r.GetAlive())
                 r.UpdateRocket(planets);
         }
+
+		//move every planet
 		for(Planet& p : *planets)
 		{
 			p.UpdatePos(time);
 		}
+
+		//draw results
         DisplayFrame();
         al_rest(0.01);
 	}

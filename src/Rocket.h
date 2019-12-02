@@ -4,17 +4,17 @@
 
 class Rocket
 {
-    double mindist;
+    double mindist;			//score of the rocket (J function)
     double xPos, yPos;
     double xVel, yVel;
 
-    bool alive;
+    bool alive;				//crashed => dead
 
-    int iTime;
-    int iFi;
-    int iV;
+    int iTime;				//launch time
+    int iFi;				//launch angle
+    int iV;					//launch velocity
 
-    static int MAXDIST;
+    static int MAXDIST;		//at that distance (between rocket and planet) rocket crushes
     static int PLANETMASS;
     static int G;
     static int TARGET;
@@ -35,8 +35,8 @@ public:
     bool GetAlive() const;
     void SetAlive(bool Arg);
 
-    void UpdateRocket(std::vector<Planet>* planets);
-    void MoveToPlanet(const Planet& p, int time);
+    void UpdateRocket(std::vector<Planet>* planets);		//update rockets current position
+    void MoveToPlanet(const Planet& p, int time);			//resolving first move of the rocket after launch
 
     static void SetPLANETMASS(int Arg);
     static void SetMAXDIST(int Arg);

@@ -27,11 +27,11 @@ public:
     Universe() = delete;
     Universe(std::vector<Planet>* pArg, std::vector<Rocket>* rArg);
 
-    void SetObjectConstants();
-    void LoadAssetsToDraw();
+    void SetObjectConstants();	//load constans to Rocket:: and Planet::
+    void LoadAssetsToDraw();	//load stuff to drawingObject
     void LoadFromFile(int homeArg, int targetArg, double distArg, int timeArg);
 
-	void Simulate();
+	void Simulate();			//simulate change of universe in MAXTIME
     void ResetSimulation();
 
     void DisplayFrame();

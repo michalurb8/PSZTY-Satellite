@@ -23,6 +23,11 @@ void Rocket::Move()
     yPos += yVel;
 }
 
+int Rocket::GetScore(const Planet& p) const
+{
+	return mindist;
+}
+
 void Rocket::Accel(double xArg, double yArg)
 {
     xVel += xArg;
@@ -63,34 +68,41 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets)
     double distsq;
     double dist;
     double MGRRR; // - M*G / R^3
+
+	// first move
     r.Move();
+
+	// then calculate stuff for the next move
     for(int i = 0; i < (int)planets->size(); ++i)
     {
         Planet& p = (*planets)[i];
-
+		
+		//calculate "wk³ad do przyœpieszenia od planety p"
         deltaX = (r.GetXPos() - p.GetXPos());
         deltaY = (r.GetYPos() - p.GetYPos());
         distsq = (deltaX * deltaX) + (deltaY * deltaY);
         dist = sqrt(distsq);
-
         MGRRR = -1 * G * PLANETMASS / (distsq * dist);
 
         if(dist > MAXDIST)
         {
+			// add "wk³ad do przyœpieszenia od planety p" to acceleration
             r.Accel(MGRRR * deltaX, MGRRR * deltaY);
-            if(i == TARGET && dist < r.mindist) 
+			
+			//update score
+            if(i == TARGET && dist < r.mindist)		
             {
                 r.mindist = dist;
             }
         }
-        else
+		else //crush
         {
             std::cout << "rocket ded" << std::endl;
             r.alive = false;
         }
     }
 }
-void Rocket::MoveToPlanet(const Planet& p, int time)
+void Rocket::MoveToPlanet(const Planet& p, int time)		//resolve first move after launch
 {
     alive = true;
 

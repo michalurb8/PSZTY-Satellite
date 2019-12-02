@@ -2,16 +2,19 @@
 
 class Planet
 {
+	//variables defining planets starting position
     double initialAngle;
-    int radius;
+    int radius;			
 
+	//variables defining planets current position
     int xPos, yPos;
     double velocity;
 
-	static int SUNMASS;
-	static int PLANETRADIUS;
-	static int CLOSESTORBIT;
-	static int G;
+	//constans
+	static int SUNMASS;				//mass of the center of the solar system
+	static int PLANETRADIUS;		
+	static int CLOSESTORBIT;		//closest possible distance planet<->sun
+	static int G;					//sta³a grawitacyjna
 
 public:
     Planet(double angleArg, unsigned int radArg);

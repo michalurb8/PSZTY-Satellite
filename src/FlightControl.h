@@ -18,5 +18,5 @@ public:
 	FlightControl();
 
 	void ShellResolve(char choice);
-	void ShellLoop();
+	void ShellLoop();				//infinite loop receiving consol commands
 };
