@@ -1,6 +1,5 @@
 #include "Planet.h"
 #include <cmath>
-#include <iostream>
 
 int Planet::SUNMASS;
 int Planet::PLANETRADIUS;

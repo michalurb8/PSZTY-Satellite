@@ -1,7 +1,5 @@
 #include"Generation.h"
-#include <iostream>
-#include <vector>
-#include <time.h>
+#include <ctime>
 #include <algorithm>
 
 void Generation::Init(std::vector<Rocket>* rArg)

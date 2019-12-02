@@ -1,10 +1,7 @@
 #include <fstream>
-#include <iostream>
 #include <cmath>
-#include <allegro5/allegro.h>
 
 #include "Universe.h"
-#include "Planet.h"
 
 void Universe::Init(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
 {

@@ -11,7 +11,7 @@ int Rocket::TARGET;
 
 Rocket::Rocket(int timeArg, double fiArg, double vArg)
 {
-    mindist = INT16_MAX;
+    mindist = INT32_MAX;
 
     alive = false;
     iV = vArg;
@@ -122,7 +122,7 @@ void Rocket::MoveToPlanet(const Planet& p, int time)		//resolve first move after
     xVel = iV * cos(iFi) + p.GetXVel(time);
     yVel = iV * sin(iFi) + p.GetYVel(time);
 
-    mindist = INT16_MAX;
+    mindist = INT32_MAX;
 
 }
 
