@@ -14,10 +14,10 @@ class Universe
     const int G = 5;
     const int CLOSESTORBIT = 50;
 
-    int MAXDIST = 3; //to be read from file
+    int MAXDIST = 5; //to be read from file
     int MAXTIME = 50000; //to be read
-    int TARGET = 2; //to be read
-    int HOME = 1; //to be read
+    int TARGET = 0; //to be read
+    int HOME = 0; //to be read
 
     std::vector<Planet> *planets;
 	std::vector<Rocket> *rockets;

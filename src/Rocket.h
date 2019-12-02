@@ -10,9 +10,9 @@ class Rocket
 
     bool alive;				//crashed => dead
 
-    int iTime;				//launch time
-    int iFi;				//launch angle
-    int iV;					//launch velocity
+    int iTime;
+    int iFi;
+    double iV;
 
     static int MAXDIST;		//at that distance (between rocket and planet) rocket crushes
     static int PLANETMASS;

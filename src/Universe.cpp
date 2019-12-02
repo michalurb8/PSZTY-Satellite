@@ -22,6 +22,10 @@ void Universe::Simulate()
 	for(int time = 0; time < MAXTIME; ++time)
 	{
 		// move every rocket
+		for(Planet& p : *planets)
+		{
+			p.UpdatePos(time);
+		}
         for(Rocket& r : *rockets)
         {
 			//launch rocket(s) if necessary
@@ -31,14 +35,6 @@ void Universe::Simulate()
             if(r.GetAlive())
                 r.UpdateRocket(planets);
         }
-
-		//move every planet
-		for(Planet& p : *planets)
-		{
-			p.UpdatePos(time);
-		}
-
-		//draw results
         DisplayFrame();
         al_rest(0.01);
 	}
