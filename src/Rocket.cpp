@@ -97,11 +97,12 @@ void Rocket::MoveToPlanet(const Planet& p, int time)
     xPos = p.GetXPos() + MAXDIST * cos(iFi); 
     yPos = p.GetYPos() + MAXDIST * sin(iFi);
 
-    xVel = p.GetXVel(time) + iV * cos(iFi);
-    yVel = p.GetYVel(time) + iV * sin(iFi);
+    xVel = iV * cos(iFi) + p.GetXVel(time);
+    yVel = iV * sin(iFi) + p.GetYVel(time);
 
     mindist = 10000;
 
+    Move();//move it
     Move();//move it
 }
 

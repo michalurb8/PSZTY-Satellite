@@ -7,8 +7,9 @@ FlightControl::FlightControl()
 {
 	for(int i = 0; i < 5; ++i)
 		planets.push_back(Planet(i*3, i*50 + 200));
-	for(int i = 0; i < 20; ++i)
-		rockets.push_back(Rocket(100*i, 0, 5));
+	for(int i = 0; i < 300; ++i)
+		for(int j = 0; j < 6; ++j)
+			rockets.push_back(Rocket(4*i, j, 3));
 }
 
 void FlightControl::AddPlanet(unsigned int angleArg, unsigned int radArg)

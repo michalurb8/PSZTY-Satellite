@@ -12,7 +12,7 @@ class Rocket
 
     int iTime;
     int iFi;
-    int iV;
+    double iV;
 
     static int MAXDIST;
     static int PLANETMASS;
