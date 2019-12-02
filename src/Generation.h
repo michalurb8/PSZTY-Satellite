@@ -6,14 +6,13 @@
 class Generation
 {
 	std::vector<Rocket>* rockets;
-	static int mi;
-	static int lambda;
+	const int lambda = 100;
 
-public:
-	
-	Generation(int miArg, int lambdaArg);
-	void Reproduce();		//reproduce and add descendants to rockets
 	void SelectParents(std::vector<Rocket>* selectedRockets);
 	void Crossbreeding(std::vector<Rocket>* parents, std::vector<Rocket>* babies);
+public:
+	
+	void Init(std::vector<Rocket>* rArg);
+	void Reproduce();		//reproduce and add descendants to rockets
 	void Kill();					//select some rockets and remove others from rockets
 };

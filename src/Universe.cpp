@@ -6,7 +6,7 @@
 #include "Universe.h"
 #include "Planet.h"
 
-Universe::Universe(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
+void Universe::Init(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
 {
     planets = pArg;
     rockets = rArg;
@@ -14,7 +14,7 @@ Universe::Universe(std::vector<Planet>* pArg, std::vector<Rocket>* rArg)
     LoadAssetsToDraw();
 }
 
-void Universe::Simulate()
+void Universe::Simulate(bool drawingFlag)
 {
     ResetSimulation();
 
@@ -33,10 +33,13 @@ void Universe::Simulate()
                 r.MoveToPlanet((*planets)[HOME], time);
 			
             if(r.GetAlive())
-                r.UpdateRocket(planets);
+                r.UpdateRocket(planets, time);
         }
-        DisplayFrame();
-        al_rest(0.01);
+        if(drawingFlag)
+        {
+            DisplayFrame();
+            al_rest(0.01);
+        }
 	}
 }
 

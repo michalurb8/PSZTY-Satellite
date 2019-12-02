@@ -38,7 +38,7 @@ public:
     bool GetAlive() const;
     void SetAlive(bool Arg);
 
-    void UpdateRocket(std::vector<Planet>* planets);		//update rockets current position
+    void UpdateRocket(std::vector<Planet>* planets, int time);		//update rockets current position
     void MoveToPlanet(const Planet& p, int time);			//resolving first move of the rocket after launch
 
     static void SetPLANETMASS(int Arg);

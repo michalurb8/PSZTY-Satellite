@@ -11,7 +11,8 @@ int Rocket::TARGET;
 
 Rocket::Rocket(int timeArg, double fiArg, double vArg)
 {
-    alive = true;
+    mindist = INT16_MAX;
+    alive = false;
     iV = vArg;
     iTime = timeArg;
     iFi = fiArg;
@@ -70,7 +71,7 @@ int Rocket::GetV() const
 	return iV;
 }
 
-void Rocket::UpdateRocket(std::vector<Planet>* planets)
+void Rocket::UpdateRocket(std::vector<Planet>* planets, int time)
 {
     Rocket& r = *this;
     double deltaX;
@@ -87,7 +88,7 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets)
     {
         Planet& p = (*planets)[i];
 		
-		//calculate "wk³ad do przyœpieszenia od planety p"
+		//calculate "wklad do przyspieszenia od planety p"
         deltaX = (r.GetXPos() - p.GetXPos());
         deltaY = (r.GetYPos() - p.GetYPos());
         distsq = (deltaX * deltaX) + (deltaY * deltaY);
@@ -96,7 +97,7 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets)
 
         if(dist > MAXDIST)
         {
-			// add "wk³ad do przyœpieszenia od planety p" to acceleration
+			// add "wklad do przyspieszenia od planety p" to acceleration
             r.Accel(MGRRR * deltaX, MGRRR * deltaY);
 			
 			//update score
@@ -107,7 +108,13 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets)
         }
 		else //crush
         {
-            std::cout << "rocket ded" << std::endl;
+            /*
+            if(i == TARGET)
+            {
+                mindist = 0;
+            }
+            else mindist += 5;
+            */
             r.alive = false;
         }
     }
@@ -122,7 +129,7 @@ void Rocket::MoveToPlanet(const Planet& p, int time)		//resolve first move after
     xVel = iV * cos(iFi) + p.GetXVel(time);
     yVel = iV * sin(iFi) + p.GetYVel(time);
 
-    mindist = 10000;
+    mindist = INT16_MAX;
 
     Move();//move it
     Move();//move it

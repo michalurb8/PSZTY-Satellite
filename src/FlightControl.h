@@ -2,11 +2,13 @@
 #include "Universe.h"
 #include "Planet.h"
 #include "Rocket.h"
+#include "Generation.h"
 #include <vector>
 
 class FlightControl
 {
 	Universe universe;
+	Generation generation;
 
 	std::vector<Planet> planets;
 	std::vector<Rocket> rockets;
@@ -16,6 +18,7 @@ class FlightControl
 	void LoadDataFromFile();
 public:
 	FlightControl();
+ 	void PassGeneration();
 
 	void ShellResolve(char choice);
 	void ShellLoop();				//infinite loop receiving consol commands

@@ -1,15 +1,15 @@
 #include "FlightControl.h"
 #include <iostream>
 #include <fstream>
+#include <ctime>
 
 FlightControl::FlightControl()
-:universe(Universe(&planets, &rockets))
 {
-	for(int i = 0; i < 5; ++i)
-		planets.push_back(Planet(i*3, i*50 + 200));
-	for(int i = 0; i < 300; ++i)
-		for(int j = 0; j < 6; ++j)
-			rockets.push_back(Rocket(4*i, j, 3));
+	srand(time(NULL));
+	universe.Init(&planets, &rockets);
+	generation.Init(&rockets);
+	for(int i = 0; i < 15; ++i)
+		planets.push_back(Planet((double)(rand()%220)/10, rand()%500));
 }
 
 void FlightControl::AddPlanet(unsigned int angleArg, unsigned int radArg)
@@ -31,6 +31,7 @@ void FlightControl::ShellResolve(char choice)
 			"   d - Display generation" << std::endl <<
 			"   c - Close window" << std::endl <<
 			"   l - Load data from file input.txt" << std::endl <<
+			"   p - Pass generation" << std::endl <<
 			"   q - Exit" << std::endl;
 		return;
 	case 'c':
@@ -39,8 +40,11 @@ void FlightControl::ShellResolve(char choice)
 	case 'l':
 		LoadDataFromFile();
 		break;
+	case 'p':
+		PassGeneration();
+		break;
 	case 'd':
-		universe.Simulate();
+		universe.Simulate(1);
 		break;
 	default:
 		std::cout << "Unknown command. Try 'h' for help." << std::endl;
@@ -60,6 +64,7 @@ void FlightControl::ShellLoop()
 		ShellResolve(choice);
 	} while (choice != 'q');
 }
+
 void FlightControl::LoadDataFromFile()
 {
 	planets.clear();
@@ -81,4 +86,11 @@ void FlightControl::LoadDataFromFile()
 	input.close();
 	universe.LoadFromFile(home, target, maxdist, maxtime);
 	std::cout << "Data loaded successfully" << std::endl;
+}
+
+void FlightControl::PassGeneration()
+{
+	generation.Reproduce();
+	universe.Simulate(0);
+	generation.Kill();
 }

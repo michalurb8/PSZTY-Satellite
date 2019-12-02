@@ -1,15 +1,21 @@
 #include"Generation.h"
+#include <iostream>
 #include <vector>
 #include <time.h>
 #include <algorithm>
 
-int Generation::mi;
-int Generation::lambda;
-
-Generation::Generation(int miArg, int lambdaArg)
+void Generation::Init(std::vector<Rocket>* rArg)
 {
-	mi = miArg;
-	lambda = lambdaArg;
+	rockets = rArg;
+	for(auto a : *rockets) std::cout << a.GetAlive() << std::endl;
+	rockets->clear();
+	srand(time(NULL));
+
+	for(int i = 0; i < 300; ++i)
+	{
+		Rocket temp = Rocket(rand()%500, (double)(rand()%22), rand()%8);///import maxtime TODO
+		rockets->push_back(temp);
+	}
 }
 
 void Generation::Reproduce()
@@ -30,8 +36,6 @@ void Generation::Reproduce()
 
 void Generation::SelectParents(std::vector<Rocket>* selectedRockets)
 {
-	srand(time(NULL));
-
 	for (int i = 0; i < lambda; ++i)
 	{
 		selectedRockets->push_back((*rockets)[rand() % (rockets->size())]);
@@ -58,8 +62,7 @@ void Generation::Crossbreeding(std::vector<Rocket>* parents, std::vector<Rocket>
 void Generation::Kill()
 {
 	std::sort(rockets->begin(), rockets->end());
-	int rocketsSize = rockets->size();
-	for (int i = lambda; i < rocketsSize; ++i)
+	while(rockets->size() > lambda)
 	{
 		rockets->pop_back();
 	}
