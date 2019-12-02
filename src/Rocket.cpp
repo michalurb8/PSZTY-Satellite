@@ -93,7 +93,7 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets, int time)
 
         if(dist > MAXDIST)
         {
-			// add "wklad do przyspieszenia od planety p" to acceleration
+			//add "wklad do przyspieszenia od planety p" to acceleration
             r.Accel(MGRRR * deltaX, MGRRR * deltaY);
 			
 			//update score
@@ -112,7 +112,7 @@ void Rocket::UpdateRocket(std::vector<Planet>* planets, int time)
         }
     }
 }
-void Rocket::MoveToPlanet(const Planet& p, int time)		//resolve first move after launch
+void Rocket::MoveToPlanet(const Planet& p, int time)	//resolve first move after launch
 {
     alive = true;
 

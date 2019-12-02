@@ -2,7 +2,7 @@
 
 int main()
 {
-	FlightControl x;
-	x.ShellLoop();
+	FlightControl control;
+	control.ShellLoop();
 	return 0;
 }
